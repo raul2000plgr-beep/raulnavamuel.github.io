@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Raúl Navamuel García · Aerospace Simulation Engineer</title>
+  <meta name="description" content="CV web + visual portfolio of Raúl Navamuel García — Thermal (space), CFD and Structural analysis. Python/MATLAB/C++ tooling." />
+  <meta name="theme-color" content="#070a12" />
+
+  <style>
+    :root{
+      --bg:#070a12;
+      --stroke: rgba(255,255,255,.12);
+      --text:#eaf0ff;
+      --muted: rgba(234,240,255,.72);
+      --muted2: rgba(234,240,255,.56);
+      --a:#7c5cff;
+      --b:#3dd6ff;
+      --c:#37d67a;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --r: 18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(900px 650px at 10% 6%, rgba(124,92,255,.38), transparent 55%),
+        radial-gradient(900px 650px at 90% 10%, rgba(61,214,255,.26), transparent 55%),
+        radial-gradient(900px 650px at 50% 92%, rgba(55,214,122,.14), transparent 55%),
+        var(--bg);
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1150px; margin:0 auto; padding:26px 18px 70px;}
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:30;
+      backdrop-filter: blur(10px);
+      background: rgba(7,10,18,.62);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .topbar .inner{
+      max-width:1150px; margin:0 auto; padding:12px 18px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .brand{display:flex; align-items:center; gap:10px}
+    .logo{
+      width:12px; height:12px; border-radius:99px;
+      background: linear-gradient(135deg, var(--a), var(--b));
+      box-shadow: 0 0 24px rgba(124,92,255,.55);
+    }
+    .nav{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end}
+    .nav a{
+      font-size:13px; color:var(--muted);
+      padding:8px 10px; border-radius:999px;
+      border:1px solid transparent;
+    }
+    .nav a:hover{color:var(--text); border-color:rgba(255,255,255,.14); background:rgba(255,255,255,.05)}
+
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:16px;
+      margin-top:16px;
+      align-items:stretch;
+    }
+    @media(max-width:920px){ .hero{grid-template-columns:1fr} }
+
+    .card{
+      position:relative;
+      border-radius: calc(var(--r) + 8px);
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.045));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(420px 260px at 12% 8%, rgba(124,92,255,.48), transparent 58%),
+        radial-gradient(420px 260px at 88% 20%, rgba(61,214,255,.24), transparent 58%);
+      opacity:.55;
+      pointer-events:none;
+    }
+    .pad{position:relative; padding:18px;}
+    .kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      font-size:12px; color:var(--muted);
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+    }
+    .h1{
+      margin:10px 0 8px;
+      font-size:40px;
+      line-height:1.05;
+      letter-spacing:.2px;
+    }
+    .h1 span{
+      background: linear-gradient(135deg, var(--a), var(--b));
+      -webkit-background-clip:text; background-clip:text;
+      color:transparent;
+    }
+    .lead{
+      margin:10px 0 0;
+      color:var(--muted);
+      font-size:15.5px;
+      line-height:1.55;
+      max-width:78ch;
+    }
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
+    .chip{
+      font-size:13px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+    }
+    .cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      font-weight:900;
+      font-size:14px;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08)}
+    .btn.primary{
+      border-color: rgba(124,92,255,.45);
+      background: linear-gradient(135deg, rgba(124,92,255,.22), rgba(61,214,255,.12));
+    }
+    .btn.ghost{color:var(--muted)}
+    .mini{margin-top:14px; display:flex; flex-wrap:wrap; gap:10px; color:var(--muted2); font-size:13px}
+
+    /* Profile card */
+    .profile{
+      display:grid;
+      grid-template-columns: 92px 1fr;
+      gap:14px;
+      align-items:center;
+    }
+    .avatar{
+      width:92px; height:92px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.16);
+      background:
+        radial-gradient(120px 120px at 30% 20%, rgba(124,92,255,.45), transparent 55%),
+        radial-gradient(120px 120px at 70% 35%, rgba(61,214,255,.25), transparent 55%),
+        rgba(255,255,255,.05);
+      overflow:hidden;
+      display:flex; align-items:center; justify-content:center;
+      color: var(--muted2);
+      font-size:12px;
+      text-align:center;
+      padding:8px;
+    }
+    .kv{display:grid; gap:8px; margin-top:14px}
+    .kvRow{
+      display:flex; justify-content:space-between; gap:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:13.5px;
+    }
+    .kvRow b{color:var(--text); font-weight:950}
+    .small{font-size:12.5px; color:var(--muted2)}
+
+    /* Sections layout */
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px;
+      margin-top:16px;
+    }
+    @media(max-width:920px){ .grid{grid-template-columns:1fr} }
+
+    .section{
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--r);
+      box-shadow: 0 12px 40px rgba(0,0,0,.25);
+      overflow:hidden;
+    }
+    .sectionHeader{
+      padding:14px 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+    .sectionHeader h2{
+      margin:0;
+      font-size:15px;
+      letter-spacing:.35px;
+      text-transform:uppercase;
+    }
+    .sectionBody{padding:16px}
+    .item{padding:14px 0; border-top: 1px solid rgba(255,255,255,.08)}
+    .item:first-child{border-top:0; padding-top:0}
+    .role{margin:0; font-weight:980; letter-spacing:.2px}
+    .meta{margin-top:6px; color:var(--muted); font-size:13px; display:flex; gap:10px; flex-wrap:wrap}
+    .bullets{margin:10px 0 0 16px; color:var(--muted); line-height:1.55}
+    .pills{display:flex; flex-wrap:wrap; gap:8px}
+    .pill{
+      font-size:13px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(124,92,255,.28);
+      background: rgba(124,92,255,.12);
+      color: var(--text);
+    }
+    .pill.alt{border-color: rgba(61,214,255,.25); background: rgba(61,214,255,.10)}
+    .pill.good{border-color: rgba(55,214,122,.22); background: rgba(55,214,122,.10)}
+
+    /* Portfolio */
+    .filters{display:flex; gap:8px; flex-wrap:wrap}
+    .tagbtn{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      border-radius:999px;
+      padding:8px 10px;
+      font-size:13px;
+      cursor:pointer;
+    }
+    .tagbtn[aria-pressed="true"]{
+      color: var(--text);
+      border-color: rgba(124,92,255,.42);
+      background: rgba(124,92,255,.15);
+    }
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media(max-width:920px){ .gallery{grid-template-columns: repeat(2, 1fr)} }
+    @media(max-width:520px){ .gallery{grid-template-columns: 1fr} }
+    .work{
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      overflow:hidden;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease;
+      display:flex; flex-direction:column;
+    }
+    .work:hover{transform: translateY(-2px); background: rgba(255,255,255,.06)}
+    .thumb{
+      aspect-ratio: 16/10;
+      background:
+        radial-gradient(120px 120px at 30% 20%, rgba(124,92,255,.28), transparent 55%),
+        radial-gradient(120px 120px at 70% 35%, rgba(61,214,255,.18), transparent 55%),
+        rgba(255,255,255,.03);
+      border-bottom:1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+    }
+    .thumb img{width:100%; height:100%; object-fit:cover; display:block}
+    .info{padding:12px; display:grid; gap:6px}
+    .title{font-weight:980}
+    .desc{color:var(--muted); font-size:13px; line-height:1.35}
+    .badge{font-size:12px; color:var(--muted2)}
+
+    /* Modal */
+    dialog.modal{
+      position:fixed; inset:0;
+      width:100%; height:100%;
+      border:0; padding:24px 16px;
+      background: rgba(0,0,0,.72);
+      display:none;
+      z-index:60;
+    }
+    dialog.modal[open]{display:block}
+    .modalCard{
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 20px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(12,16,28,.92);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 30px 90px rgba(0,0,0,.6);
+      overflow:hidden;
+    }
+    .modalTop{
+      display:flex; justify-content:space-between; align-items:center;
+      padding:12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .x{
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border-radius:12px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-weight:980;
+    }
+    .modalBody{padding:14px}
+    .media{
+      width:100%;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+    }
+    .media img{width:100%; height:auto; display:block}
+    .modalMeta{margin-top:12px; display:grid; gap:6px}
+    .foot{margin-top:18px; color:var(--muted2); font-size:13px; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between}
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="inner">
+      <div class="brand">
+        <span class="logo"></span>
+        <b>Raúl Navamuel García</b>
+      </div>
+      <nav class="nav">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <!-- HERO -->
+    <div class="hero">
+      <div class="card">
+        <div class="pad">
+          <div class="kicker">✨ Aerospace Simulation · Thermal (Space) · CFD · Structures</div>
+          <div class="h1">Thermal <span>Space</span> Design<br/>CFD & Structural Verification</div>
+
+          <p class="lead">
+            Aerospace engineer focused on simulation-driven design: transient thermal analysis with radiation for space
+            structures, CFD studies, and static/dynamic structural verification. Also experienced in developing internal
+            engineering tools (Python/MATLAB/C++) to automate workflows and improve efficiency.
+          </p>
+
+          <div class="chips">
+            <span class="chip">Hypermesh · Nastran</span>
+            <span class="chip">Ansys / Fluent</span>
+            <span class="chip">SimSolid · Inspire</span>
+            <span class="chip">CFD Hyperworks · Acusolve</span>
+            <span class="chip">Python · MATLAB · C++</span>
+          </div>
+
+          <div class="cta">
+            <a class="btn primary" href="#portfolio">🚀 View portfolio</a>
+            <a class="btn" href="mailto:raul2000plgr@gmail.com">✉️ Email</a>
+            <a class="btn" href="tel:+34665562076">📞 Call</a>
+            <a class="btn ghost" href="./assets/Raul-Navamuel-CV.pdf" target="_blank" rel="noreferrer">⬇️ Download PDF</a>
+          </div>
+
+          <div class="mini">
+            <span>📍 Madrid</span>
+            <span>Spanish: Native · English: B2 (TOEIC)</span>
+            <span>🔗 <a href="https://www.linkedin.com/in/ra%C3%BAl-navamuel-garc%C3%ADa-70a016174/" target="_blank" rel="noreferrer" style="text-decoration:underline">LinkedIn</a></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="contact">
+        <div class="pad">
+          <div class="profile">
+            <div class="avatar">
+              <div>
+                <div style="font-weight:980; margin-bottom:6px;">Photo</div>
+                <div class="small">assets/photo.jpg</div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:16px; font-weight:980;">Raúl Navamuel García</div>
+              <div class="small">Simulation / Stress / Thermal Engineer</div>
+              <div class="small">Space · Defense · Aerospace</div>
+            </div>
+          </div>
+
+          <div class="kv">
+            <div class="kvRow"><span>Email</span><b><a href="mailto:raul2000plgr@gmail.com">raul2000plgr@gmail.com</a></b></div>
+            <div class="kvRow"><span>Phone</span><b><a href="tel:+34665562076">665 562 076</a></b></div>
+            <div class="kvRow"><span>LinkedIn</span><b><a href="https://www.linkedin.com/in/ra%C3%BAl-navamuel-garc%C3%ADa-70a016174/" target="_blank" rel="noreferrer">Profile</a></b></div>
+          </div>
+
+          <div class="foot">
+            <span class="small">Updated: <span id="date"></span></span>
+            <span class="small">© <span id="y"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="grid">
+      <div>
+        <!-- PORTFOLIO -->
+        <div class="section" id="portfolio">
+          <div class="sectionHeader">
+            <h2>Portfolio</h2>
+            <div class="filters">
+              <button class="tagbtn" data-filter="all" aria-pressed="true">All</button>
+              <button class="tagbtn" data-filter="thermal" aria-pressed="false">Thermal</button>
+              <button class="tagbtn" data-filter="structures" aria-pressed="false">Structures</button>
+              <button class="tagbtn" data-filter="cfd" aria-pressed="false">CFD</button>
+              <button class="tagbtn" data-filter="cad" aria-pressed="false">CAD</button>
+              <button class="tagbtn" data-filter="software" aria-pressed="false">Software</button>
+            </div>
+          </div>
+
+          <div class="sectionBody">
+            <div class="gallery">
+              <!-- 1) SAR-ECO -->
+              <article class="work" data-tags="thermal structures" tabindex="0"
+                data-src="./assets/portfolio/sar-eco-thermal.jpg"
+                data-title="Sar-Eco LEO Satellite · Transient Thermal Design"
+                data-desc="Led the thermal design of a LEO satellite subsystem. Developed transient thermal models including radiation and conduction, and designed the thermal interface for periodic high-voltage pulsed electronics.">
+                <div class="thumb"><img src="./assets/portfolio/sar-eco-thermal.jpg" alt="Sar-Eco thermal"></div>
+                <div class="info">
+                  <div class="title">Sar-Eco LEO Satellite</div>
+                  <div class="desc">Transient thermal model + interface design</div>
+                  <div class="badge">🌡️ Thermal · 🛰️ Space · 🧱 Structures</div>
+                </div>
+              </article>
+
+              <!-- BONUS) HTP composites (extra nice) -->
+              <article class="work" data-tags="structures" tabindex="0"
+                data-src="./assets/portfolio/htp-composites.jpg"
+                data-title="Horizontal Tail Plane (HTP) · Composite Laminate Optimization"
+                data-desc="Redesigned an HTP configuration and optimized composite laminate properties to meet static load requirements.">
+                <div class="thumb"><img src="./assets/portfolio/htp-composites.jpg" alt="HTP composites"></div>
+                <div class="info">
+                  <div class="title">HTP · Composites</div>
+                  <div class="desc">Laminate optimization & compliance</div>
+                  <div class="badge">🧱 Structures · 🧵 Composites</div>
+                </div>
+              </article>
+
+              <!-- 2) Turboprop CFD -->
+              <article class="work" data-tags="cfd" tabindex="0"
+                data-src="./assets/portfolio/turboprop-cfd.png"
+                data-title="Hydrogen Turboprop Test Bench · CFD Aerodynamics"
+                data-desc="CFD analysis of nacelle aerodynamics using streamlines/contours to assess flow behavior under operating conditions.">
+                <div class="thumb"><img src="./assets/portfolio/turboprop-cfd.png" alt="Turboprop CFD"></div>
+                <div class="info">
+                  <div class="title">Hydrogen Turboprop · CFD</div>
+                  <div class="desc">Nacelle aerodynamics (streamlines)</div>
+                  <div class="badge">🌬️ CFD · ✈️ Aerospace</div>
+                </div>
+              </article>
+
+              <!-- 2) Turboprop Structures -->
+              <article class="work" data-tags="structures" tabindex="0"
+                data-src="./assets/portfolio/turboprop-fea.png"
+                data-title="Hydrogen Turboprop Test Bench · Structural Verification"
+                data-desc="Structural strength verification (von Mises) under applied loads to ensure safe operation.">
+                <div class="thumb"><img src="./assets/portfolio/turboprop-fea.png" alt="Turboprop FEA"></div>
+                <div class="info">
+                  <div class="title">Hydrogen Turboprop · FEA</div>
+                  <div class="desc">Strength verification (von Mises)</div>
+                  <div class="badge">🧱 Structures · ✅ Verification</div>
+                </div>
+              </article>
+
+              <!-- 3) Turbofan CAD -->
+              <article class="work" data-tags="cad" tabindex="0"
+                data-src="./assets/portfolio/turbofan-3d.jpg"
+                data-title="Turbofan Preliminary 3D Design · Technical Team Lead"
+                data-desc="Led a team of four engineers in the preliminary 3D design of a turbofan engine. Responsible for combustion chamber design, integration and coordination of the full assembly.">
+                <div class="thumb"><img src="./assets/portfolio/turbofan-3d.jpg" alt="Turbofan CAD"></div>
+                <div class="info">
+                  <div class="title">Turbofan 3D Design</div>
+                  <div class="desc">Combustion chamber + integration</div>
+                  <div class="badge">🧩 CAD · 👥 Leadership</div>
+                </div>
+              </article>
+
+              <!-- 4) Tools -->
+              <article class="work" data-tags="software" tabindex="0"
+                data-src="./assets/portfolio/tools.jpg"
+                data-title="Engineering Software Tools · Automation & Analysis"
+                data-desc="Development of internal engineering tools to automate analysis workflows and improve efficiency using Python, MATLAB and C++.">
+                <div class="thumb"><img src="./assets/portfolio/tools.jpg" alt="Tools"></div>
+                <div class="info">
+                  <div class="title">Software Tools</div>
+                  <div class="desc">Automation & analysis workflows</div>
+                  <div class="badge">🧠 Software · ⚙️ Automation</div>
+                </div>
+              </article>
+
+              <!-- 5) Thermal generic -->
+              <article class="work" data-tags="thermal" tabindex="0"
+                data-src="./assets/portfolio/thermal-space.png"
+                data-title="Thermal Analysis of Space Structures"
+                data-desc="Transient and steady-state thermal simulations of space components using finite element models with radiation and conduction effects.">
+                <div class="thumb"><img src="./assets/portfolio/thermal-space.png" alt="Thermal space"></div>
+                <div class="info">
+                  <div class="title">Thermal (Space)</div>
+                  <div class="desc">Radiation + conduction FE models</div>
+                  <div class="badge">🌡️ Thermal · 🛰️ Space</div>
+                </div>
+              </article>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- EXPERIENCE (placeholder - keep from your CV or edit later) -->
+        <div class="section" id="experience" style="margin-top:16px">
+          <div class="sectionHeader">
+            <h2>Experience</h2>
+            <div class="small">Madrid / Toledo</div>
+          </div>
+          <div class="sectionBody">
+            <div class="item">
+              <p class="role">Simulation Engineer · Rheinmetall Expal Munition</p>
+              <div class="meta"><span>Jun 2025 – Present</span><span>· Madrid</span></div>
+              <ul class="bullets">
+                <li>Internal software tools using Python, MATLAB and C++.</li>
+                <li>Dynamic and transient thermal analysis for modeling.</li>
+              </ul>
+            </div>
+
+            <div class="item">
+              <p class="role">Thermal Analysis of Space Structures · Professor (EDDM / MECEA)</p>
+              <div class="meta"><span>Mar 2025 – Present</span><span>· Madrid</span></div>
+              <ul class="bullets">
+                <li>Transient nonlinear FE models with thermal radiation and conduction.</li>
+              </ul>
+            </div>
+
+            <div class="item">
+              <p class="role">Stress Engineer · Adática Engineering</p>
+              <div class="meta"><span>Apr 2024 – Jun 2025</span><span>· Madrid</span></div>
+              <ul class="bullets">
+                <li>Static/dynamic structural analysis (Hypermesh, Ansys, SimSolid).</li>
+                <li>Transient & steady-state thermal analysis with radiation for satellites.</li>
+                <li>CFD studies and analysis tooling.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div>
+        <div class="section" id="education">
+          <div class="sectionHeader">
+            <h2>Education</h2>
+            <div class="small">UPM</div>
+          </div>
+          <div class="sectionBody">
+            <div class="item">
+              <p class="role">Aeronautical and Space Engineer · Universidad Politécnica</p>
+              <div class="meta"><span>2018 – Present</span><span>· Madrid</span></div>
+            </div>
+            <div class="item">
+              <p class="role">Master in Advanced Structural Calculation · EDDM</p>
+              <div class="meta"><span>2023 – 2024</span><span>· Madrid</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section" id="skills" style="margin-top:16px">
+          <div class="sectionHeader">
+            <h2>Skills</h2>
+            <div class="small">Tools</div>
+          </div>
+          <div class="sectionBody">
+            <div class="pills">
+              <span class="pill">Hypermesh · Nastran</span>
+              <span class="pill alt">Ansys / Fluent</span>
+              <span class="pill">SimSolid · Inspire</span>
+              <span class="pill alt">CFD Hyperworks · Acusolve</span>
+              <span class="pill good">Python</span>
+              <span class="pill good">MATLAB</span>
+              <span class="pill good">C++</span>
+              <span class="pill">Catia V5</span>
+              <span class="pill">Excel (Advanced, VBA)</span>
+            </div>
+            <div class="item">
+              <p class="role">Languages</p>
+              <div class="meta"><span>Spanish: Native</span><span>English: B2 (TOEIC)</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section" style="margin-top:16px">
+          <div class="sectionHeader">
+            <h2>Certificates</h2>
+            <div class="small">Courses</div>
+          </div>
+          <div class="sectionBody">
+            <div class="item">
+              <p class="role">Advanced Excel course (50h) · UPM</p>
+              <div class="meta"><span>Large dataset filtering & organization</span></div>
+            </div>
+            <div class="item">
+              <p class="role">Initiation course in Catia V5 · UPM</p>
+              <div class="meta"><span>Part Design · Generative Shape Design</span></div>
+            </div>
+            <div class="item">
+              <p class="role">Introduction to AutoCAD</p>
+              <div class="meta"><span>Basics of design and rendering</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section" style="margin-top:16px">
+          <div class="sectionHeader">
+            <h2>Contact</h2>
+            <div class="small">Quick</div>
+          </div>
+          <div class="sectionBody">
+            <div class="meta" style="flex-direction:column; gap:8px">
+              <span>✉️ <a href="mailto:raul2000plgr@gmail.com">raul2000plgr@gmail.com</a></span>
+              <span>📞 <a href="tel:+34665562076">665 562 076</a></span>
+              <span>🔗 <a href="https://www.linkedin.com/in/ra%C3%BAl-navamuel-garc%C3%ADa-70a016174/" target="_blank" rel="noreferrer">LinkedIn</a></span>
+              <span>📍 Madrid</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <dialog class="modal" id="modal">
+    <div class="modalCard">
+      <div class="modalTop">
+        <div id="mTitle" style="font-weight:980">Project</div>
+        <button class="x" id="close">Close ✕</button>
+      </div>
+      <div class="modalBody">
+        <div class="media" id="mMedia"></div>
+        <div class="modalMeta">
+          <div class="muted" id="mDesc"></div>
+          <div class="small" id="mHint"></div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+    document.getElementById("date").textContent = new Date().toLocaleDateString("en-GB");
+
+    // Filter
+    const buttons = [...document.querySelectorAll(".tagbtn")];
+    const works = [...document.querySelectorAll(".work")];
+
+    function setPressed(btn){
+      buttons.forEach(b => b.setAttribute("aria-pressed", "false"));
+      btn.setAttribute("aria-pressed", "true");
+    }
+    function applyFilter(filter){
+      works.forEach(w => {
+        const tags = (w.getAttribute("data-tags") || "").split(/\s+/).filter(Boolean);
+        const show = filter === "all" || tags.includes(filter);
+        w.style.display = show ? "flex" : "none";
+      });
+    }
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const f = btn.getAttribute("data-filter");
+        setPressed(btn);
+        applyFilter(f);
+      });
+    });
+
+    // Modal
+    const modal = document.getElementById("modal");
+    const closeBtn = document.getElementById("close");
+    const mTitle = document.getElementById("mTitle");
+    const mDesc = document.getElementById("mDesc");
+    const mMedia = document.getElementById("mMedia");
+    const mHint = document.getElementById("mHint");
+
+    function openWork(el){
+      const src = el.getAttribute("data-src");
+      const title = el.getAttribute("data-title") || "Project";
+      const desc = el.getAttribute("data-desc") || "";
+
+      mTitle.textContent = title;
+      mDesc.textContent = desc;
+      mMedia.innerHTML = "";
+
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = title;
+      mMedia.appendChild(img);
+
+      mHint.textContent = "Tip: you can swap images anytime — keep filenames consistent.";
+      modal.setAttribute("open", "");
+    }
+
+    works.forEach(w => {
+      w.addEventListener("click", () => openWork(w));
+      w.addEventListener("keydown", (e) => {
+        if(e.key === "Enter" || e.key === " "){ e.preventDefault(); openWork(w); }
+      });
+    });
+
+    closeBtn.addEventListener("click", () => modal.removeAttribute("open"));
+    modal.addEventListener("click", (e) => {
+      const card = modal.querySelector(".modalCard");
+      if(!card.contains(e.target)) modal.removeAttribute("open");
+    });
+    window.addEventListener("keydown", (e) => { if(e.key === "Escape") modal.removeAttribute("open"); });
+  </script>
+</body>
+</html>
