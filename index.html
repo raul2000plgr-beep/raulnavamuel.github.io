@@ -254,8 +254,10 @@
       cursor:pointer;
       transition: transform .12s ease, background .12s ease;
       display:flex; flex-direction:column;
+      outline: none;
     }
     .work:hover{transform: translateY(-2px); background: rgba(255,255,255,.06)}
+    .work:focus-visible{box-shadow: 0 0 0 3px rgba(124,92,255,.35)}
     .thumb{
       aspect-ratio: 16/10;
       background:
@@ -295,7 +297,10 @@
       display:flex; justify-content:space-between; align-items:center;
       padding:12px 14px;
       border-bottom: 1px solid rgba(255,255,255,.10);
+      gap:10px;
     }
+    .modalTopLeft{display:flex; flex-direction:column; gap:4px}
+    .modalKicker{font-size:12px; color:var(--muted2)}
     .x{
       border:1px solid rgba(255,255,255,.16);
       background: rgba(255,255,255,.06);
@@ -304,8 +309,9 @@
       padding:8px 10px;
       cursor:pointer;
       font-weight:980;
+      flex: 0 0 auto;
     }
-    .modalBody{padding:14px}
+    .modalBody{padding:14px; display:grid; gap:14px}
     .media{
       width:100%;
       border-radius:16px;
@@ -314,8 +320,46 @@
       overflow:hidden;
     }
     .media img{width:100%; height:auto; display:block}
-    .modalMeta{margin-top:12px; display:grid; gap:6px}
-    .foot{margin-top:18px; color:var(--muted2); font-size:13px; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between}
+    .modalGrid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+      align-items:start;
+    }
+    @media(max-width:920px){ .modalGrid{grid-template-columns:1fr} }
+
+    .panel{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      border-radius:16px;
+      padding:14px;
+    }
+    .panel h3{
+      margin:0 0 10px;
+      font-size:14px;
+      text-transform:uppercase;
+      letter-spacing:.35px;
+      color: var(--muted);
+    }
+    .panel p{margin:0; color:var(--muted); line-height:1.6; font-size:14px}
+    .list{
+      margin:10px 0 0 18px;
+      color: var(--muted);
+      line-height:1.55;
+      font-size:14px;
+    }
+    .tagrow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+    .tag{
+      font-size:12.5px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+    }
+    .tag.good{border-color: rgba(55,214,122,.22); background: rgba(55,214,122,.10)}
+    .tag.alt{border-color: rgba(61,214,255,.25); background: rgba(61,214,255,.10)}
+    .foot{color:var(--muted2); font-size:12.5px; display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between}
   </style>
 </head>
 
@@ -422,11 +466,18 @@
 
           <div class="sectionBody">
             <div class="gallery">
-              <!-- 1) SAR-ECO -->
+
+              <!-- SAR-ECO -->
               <article class="work" data-tags="thermal structures" tabindex="0"
+                data-id="sar-eco"
                 data-src="./assets/portfolio/sar-eco-thermal.jpg"
                 data-title="Sar-Eco LEO Satellite · Transient Thermal Design"
-                data-desc="Led the thermal design of a LEO satellite subsystem. Developed transient thermal models including radiation and conduction, and designed the thermal interface for periodic high-voltage pulsed electronics.">
+                data-kicker="Space · Thermal Engineering"
+                data-tools="Hypermesh · SimLab/CFD Hyperworks · FEA thermal (radiation/conduction)"
+                data-what="Thermal model and interface design for satellite electronics"
+                data-impact="Validated temperature gradients and interfaces under operational conditions"
+                data-desc="Led the thermal design of a LEO satellite subsystem. Built a transient thermal model including radiation and conduction effects. Designed the thermal interface for periodic high-voltage pulsed electronics, ensuring compliance with operational temperature limits in space-like conditions."
+                data-bullets="Transient thermal analysis with radiation & conduction|Temperature gradient assessment and thermal interface definition|Space-relevant constraints and validation-focused workflow">
                 <div class="thumb"><img src="./assets/portfolio/sar-eco-thermal.jpg" alt="Sar-Eco thermal"></div>
                 <div class="info">
                   <div class="title">Sar-Eco LEO Satellite</div>
@@ -435,11 +486,17 @@
                 </div>
               </article>
 
-              <!-- BONUS) HTP composites (extra nice) -->
+              <!-- HTP Composites -->
               <article class="work" data-tags="structures" tabindex="0"
+                data-id="htp"
                 data-src="./assets/portfolio/htp-composites.jpg"
                 data-title="Horizontal Tail Plane (HTP) · Composite Laminate Optimization"
-                data-desc="Redesigned an HTP configuration and optimized composite laminate properties to meet static load requirements.">
+                data-kicker="Aerospace Structures · Composites"
+                data-tools="Hypermesh/Nastran · Composite laminate definition"
+                data-what="Redesign and laminate optimization for structural compliance"
+                data-impact="Improved structural performance with composite layup decisions"
+                data-desc="Composite-focused structural work including laminate definition and verification. Optimized laminate properties to meet static load requirements and support weight-efficient design decisions."
+                data-bullets="Laminate definition and ply-by-ply verification|Structural compliance under static loads|Weight-aware composite design decisions">
                 <div class="thumb"><img src="./assets/portfolio/htp-composites.jpg" alt="HTP composites"></div>
                 <div class="info">
                   <div class="title">HTP · Composites</div>
@@ -448,11 +505,17 @@
                 </div>
               </article>
 
-              <!-- 2) Turboprop CFD -->
+              <!-- Turboprop CFD -->
               <article class="work" data-tags="cfd" tabindex="0"
+                data-id="turboprop-cfd"
                 data-src="./assets/portfolio/turboprop-cfd.png"
                 data-title="Hydrogen Turboprop Test Bench · CFD Aerodynamics"
-                data-desc="CFD analysis of nacelle aerodynamics using streamlines/contours to assess flow behavior under operating conditions.">
+                data-kicker="CFD · Aerodynamics"
+                data-tools="Ansys/Fluent or CFD Hyperworks · Post-processing (streamlines/contours)"
+                data-what="Nacelle aerodynamics CFD to assess flow behavior"
+                data-impact="Supported design decisions for test bench configuration"
+                data-desc="Performed CFD analysis of nacelle aerodynamics for a hydrogen turboprop test bench. Evaluated flow behavior using streamlines and velocity fields to assess aerodynamic performance and support design decisions for experimental validation."
+                data-bullets="Streamlines and velocity-field interpretation|Aerodynamic behavior assessment of nacelle geometry|Simulation-driven support for test configuration decisions">
                 <div class="thumb"><img src="./assets/portfolio/turboprop-cfd.png" alt="Turboprop CFD"></div>
                 <div class="info">
                   <div class="title">Hydrogen Turboprop · CFD</div>
@@ -461,11 +524,17 @@
                 </div>
               </article>
 
-              <!-- 2) Turboprop Structures -->
+              <!-- Turboprop FEA -->
               <article class="work" data-tags="structures" tabindex="0"
+                data-id="turboprop-fea"
                 data-src="./assets/portfolio/turboprop-fea.png"
                 data-title="Hydrogen Turboprop Test Bench · Structural Verification"
-                data-desc="Structural strength verification (von Mises) under applied loads to ensure safe operation.">
+                data-kicker="Structures · FEA"
+                data-tools="Hypermesh/Nastran · FEA post-processing"
+                data-what="Static structural verification under applied loads"
+                data-impact="Ensured safe operation under maximum conditions"
+                data-desc="Structural strength verification using finite element analysis. Assessed stress distributions under applied loads using von Mises criteria to ensure structural integrity and safe operation of the test bench under maximum conditions."
+                data-bullets="FEA setup and stress interpretation (von Mises)|Load application and constraint strategy|Safety-driven verification mindset for testing conditions">
                 <div class="thumb"><img src="./assets/portfolio/turboprop-fea.png" alt="Turboprop FEA"></div>
                 <div class="info">
                   <div class="title">Hydrogen Turboprop · FEA</div>
@@ -474,11 +543,17 @@
                 </div>
               </article>
 
-              <!-- 3) Turbofan CAD -->
+              <!-- Turbofan CAD -->
               <article class="work" data-tags="cad" tabindex="0"
+                data-id="turbofan"
                 data-src="./assets/portfolio/turbofan-3d.jpg"
                 data-title="Turbofan Preliminary 3D Design · Technical Team Lead"
-                data-desc="Led a team of four engineers in the preliminary 3D design of a turbofan engine. Responsible for combustion chamber design, integration and coordination of the full assembly.">
+                data-kicker="CAD · System Integration"
+                data-tools="CATIA V5 (or equivalent) · Assembly integration"
+                data-what="Preliminary turbofan 3D design and subsystem integration"
+                data-impact="Delivered coordinated design with clear ownership & integration"
+                data-desc="Led a team of four engineers in the preliminary 3D design of a turbofan engine. Focused on combustion chamber design and ensured proper integration of engine subsystems within the full assembly, coordinating tasks and deliverables."
+                data-bullets="Team leadership and coordination (4 engineers)|Combustion chamber design ownership|Subsystem integration and assembly coherence">
                 <div class="thumb"><img src="./assets/portfolio/turbofan-3d.jpg" alt="Turbofan CAD"></div>
                 <div class="info">
                   <div class="title">Turbofan 3D Design</div>
@@ -487,11 +562,17 @@
                 </div>
               </article>
 
-              <!-- 4) Tools -->
+              <!-- Tools -->
               <article class="work" data-tags="software" tabindex="0"
+                data-id="tools"
                 data-src="./assets/portfolio/tools.jpg"
                 data-title="Engineering Software Tools · Automation & Analysis"
-                data-desc="Development of internal engineering tools to automate analysis workflows and improve efficiency using Python, MATLAB and C++.">
+                data-kicker="Software · Engineering Productivity"
+                data-tools="Python · MATLAB · C++"
+                data-what="Internal tools for analysis automation and workflow efficiency"
+                data-impact="Reduced manual steps and supported faster engineering decisions"
+                data-desc="Developed internal engineering tools to automate analysis workflows and improve efficiency. Implemented scripts and applications using Python, MATLAB and C++ to reduce manual effort, minimize errors and support engineering decision-making."
+                data-bullets="Automation of repetitive analysis workflows|Cleaner, maintainable code practices|Engineering-focused tooling (efficiency + reliability)">
                 <div class="thumb"><img src="./assets/portfolio/tools.jpg" alt="Tools"></div>
                 <div class="info">
                   <div class="title">Software Tools</div>
@@ -500,11 +581,17 @@
                 </div>
               </article>
 
-              <!-- 5) Thermal generic -->
+              <!-- Thermal Space Generic -->
               <article class="work" data-tags="thermal" tabindex="0"
+                data-id="thermal-space"
                 data-src="./assets/portfolio/thermal-space.png"
                 data-title="Thermal Analysis of Space Structures"
-                data-desc="Transient and steady-state thermal simulations of space components using finite element models with radiation and conduction effects.">
+                data-kicker="Space Structures · Thermal"
+                data-tools="FEA thermal · Radiation & conduction"
+                data-what="Steady-state and transient thermal simulations for space components"
+                data-impact="Temperature distribution understanding for design decisions"
+                data-desc="Performed steady-state and transient thermal simulations of space-relevant components using finite element models. Considered radiation and conduction effects to evaluate temperature distributions and inform design/verification decisions."
+                data-bullets="Transient + steady-state thermal simulation|Radiation and conduction modeling mindset|Design/verification support via temperature distributions">
                 <div class="thumb"><img src="./assets/portfolio/thermal-space.png" alt="Thermal space"></div>
                 <div class="info">
                   <div class="title">Thermal (Space)</div>
@@ -514,10 +601,15 @@
               </article>
 
             </div>
+
+            <div class="foot" style="margin-top:14px">
+              <span>Tip: click any project to see the key contributions.</span>
+              <span>Keyboard: Tab + Enter also works.</span>
+            </div>
           </div>
         </div>
 
-        <!-- EXPERIENCE (placeholder - keep from your CV or edit later) -->
+        <!-- EXPERIENCE -->
         <div class="section" id="experience" style="margin-top:16px">
           <div class="sectionHeader">
             <h2>Experience</h2>
@@ -528,7 +620,7 @@
               <p class="role">Simulation Engineer · Rheinmetall Expal Munition</p>
               <div class="meta"><span>Jun 2025 – Present</span><span>· Madrid</span></div>
               <ul class="bullets">
-                <li>Internal software tools using Python, MATLAB and C++.</li>
+                <li>Development of internal software tools using Python, MATLAB and C++.</li>
                 <li>Dynamic and transient thermal analysis for modeling.</li>
               </ul>
             </div>
@@ -537,7 +629,7 @@
               <p class="role">Thermal Analysis of Space Structures · Professor (EDDM / MECEA)</p>
               <div class="meta"><span>Mar 2025 – Present</span><span>· Madrid</span></div>
               <ul class="bullets">
-                <li>Transient nonlinear FE models with thermal radiation and conduction.</li>
+                <li>Implementation and analysis of transient nonlinear FE models with thermal radiation and conduction.</li>
               </ul>
             </div>
 
@@ -545,9 +637,26 @@
               <p class="role">Stress Engineer · Adática Engineering</p>
               <div class="meta"><span>Apr 2024 – Jun 2025</span><span>· Madrid</span></div>
               <ul class="bullets">
-                <li>Static/dynamic structural analysis (Hypermesh, Ansys, SimSolid).</li>
-                <li>Transient & steady-state thermal analysis with radiation for satellites.</li>
+                <li>Static/dynamic structural analysis for aerospace.</li>
+                <li>Transient and steady-state thermal analysis with radiation for satellites.</li>
                 <li>CFD studies and analysis tooling.</li>
+              </ul>
+            </div>
+
+            <div class="item">
+              <p class="role">Python Programming Teacher · Algoritmics</p>
+              <div class="meta"><span>Sept 2024 – Present</span><span>· Toledo</span></div>
+              <ul class="bullets">
+                <li>Teaching Python (data structures, algorithms, OOP) with a focus on efficient and maintainable code.</li>
+              </ul>
+            </div>
+
+            <div class="item">
+              <p class="role">Private Tutor · Self-employed</p>
+              <div class="meta"><span>Jul 2019 – Present</span><span>· Toledo</span></div>
+              <ul class="bullets">
+                <li>Communication and mentoring: making complex concepts clear and actionable.</li>
+                <li>Helping students build study routines and interest in programming.</li>
               </ul>
             </div>
           </div>
@@ -636,18 +745,39 @@
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- MODAL -->
   <dialog class="modal" id="modal">
     <div class="modalCard">
       <div class="modalTop">
-        <div id="mTitle" style="font-weight:980">Project</div>
+        <div class="modalTopLeft">
+          <div id="mTitle" style="font-weight:980">Project</div>
+          <div class="modalKicker" id="mKicker"></div>
+        </div>
         <button class="x" id="close">Close ✕</button>
       </div>
+
       <div class="modalBody">
         <div class="media" id="mMedia"></div>
-        <div class="modalMeta">
-          <div class="muted" id="mDesc"></div>
-          <div class="small" id="mHint"></div>
+
+        <div class="modalGrid">
+          <div class="panel">
+            <h3>What was done</h3>
+            <p id="mDesc"></p>
+            <ul class="list" id="mBullets"></ul>
+          </div>
+
+          <div class="panel">
+            <h3>Key facts</h3>
+            <p><b>Focus:</b> <span id="mWhat" style="color:var(--muted)"></span></p>
+            <p style="margin-top:8px"><b>Impact:</b> <span id="mImpact" style="color:var(--muted)"></span></p>
+            <p style="margin-top:8px"><b>Tools:</b> <span id="mTools" style="color:var(--muted)"></span></p>
+            <div class="tagrow" id="mTags" aria-label="tags"></div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>Tip: Esc to close · Enter to open (keyboard)</span>
+          <span>Portfolio details derived from CV</span>
         </div>
       </div>
     </div>
@@ -683,33 +813,79 @@
     // Modal
     const modal = document.getElementById("modal");
     const closeBtn = document.getElementById("close");
+
     const mTitle = document.getElementById("mTitle");
+    const mKicker = document.getElementById("mKicker");
     const mDesc = document.getElementById("mDesc");
+    const mBullets = document.getElementById("mBullets");
     const mMedia = document.getElementById("mMedia");
-    const mHint = document.getElementById("mHint");
+    const mTools = document.getElementById("mTools");
+    const mWhat = document.getElementById("mWhat");
+    const mImpact = document.getElementById("mImpact");
+    const mTags = document.getElementById("mTags");
+
+    function tagClass(t){
+      const x = t.toLowerCase();
+      if (x.includes("python") || x.includes("matlab") || x.includes("c++")) return "tag good";
+      if (x.includes("cfd") || x.includes("fluent") || x.includes("acusolve")) return "tag alt";
+      if (x.includes("thermal") || x.includes("space")) return "tag alt";
+      return "tag";
+    }
 
     function openWork(el){
       const src = el.getAttribute("data-src");
       const title = el.getAttribute("data-title") || "Project";
+      const kicker = el.getAttribute("data-kicker") || "";
       const desc = el.getAttribute("data-desc") || "";
+      const tools = el.getAttribute("data-tools") || "";
+      const what = el.getAttribute("data-what") || "";
+      const impact = el.getAttribute("data-impact") || "";
+      const bulletsRaw = el.getAttribute("data-bullets") || "";
+      const tagsRaw = el.getAttribute("data-tags") || "";
 
       mTitle.textContent = title;
+      mKicker.textContent = kicker;
       mDesc.textContent = desc;
-      mMedia.innerHTML = "";
+      mTools.textContent = tools;
+      mWhat.textContent = what;
+      mImpact.textContent = impact;
 
+      // Media
+      mMedia.innerHTML = "";
       const img = document.createElement("img");
       img.src = src;
       img.alt = title;
       mMedia.appendChild(img);
 
-      mHint.textContent = "Tip: you can swap images anytime — keep filenames consistent.";
+      // Bullets
+      mBullets.innerHTML = "";
+      const bullets = bulletsRaw.split("|").map(s => s.trim()).filter(Boolean);
+      bullets.forEach(b => {
+        const li = document.createElement("li");
+        li.textContent = b;
+        mBullets.appendChild(li);
+      });
+
+      // Tags
+      mTags.innerHTML = "";
+      const tagList = tagsRaw.split(/\s+/).filter(Boolean).map(t => t[0].toUpperCase() + t.slice(1));
+      tagList.forEach(t => {
+        const span = document.createElement("span");
+        span.className = tagClass(t);
+        span.textContent = t;
+        mTags.appendChild(span);
+      });
+
       modal.setAttribute("open", "");
     }
 
     works.forEach(w => {
       w.addEventListener("click", () => openWork(w));
       w.addEventListener("keydown", (e) => {
-        if(e.key === "Enter" || e.key === " "){ e.preventDefault(); openWork(w); }
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          openWork(w);
+        }
       });
     });
 
@@ -722,3 +898,4 @@
   </script>
 </body>
 </html>
+
