@@ -282,38 +282,26 @@
       background: rgba(0,0,0,.72);
       display:none;
       z-index:60;
-    
-      /* permite que el contenedor tenga un área scroll si hace falta */
-      overflow: auto;
+      overflow:auto; /* scroll externo si hiciera falta */
     }
-    
+    dialog.modal[open]{display:block}
+
     .modalCard{
       max-width: 980px;
       width: min(980px, 100%);
       margin: 0 auto;
-    
+
       border-radius: 20px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(12,16,28,.92);
       backdrop-filter: blur(10px);
       box-shadow: 0 30px 90px rgba(0,0,0,.6);
-    
-      /* clave: limita altura y permite scroll interno */
+
       max-height: calc(100vh - 48px);
       overflow: hidden;
-    
-      /* layout para que el header quede fijo y el body haga scroll */
+
       display: flex;
       flex-direction: column;
-    }
-    
-    .modalBody{
-      padding:14px;
-      display:grid;
-      gap:14px;
-    
-      /* clave: el scroll ocurre aquí */
-      overflow: auto;
     }
 
     .modalTop{
@@ -321,9 +309,12 @@
       padding:12px 14px;
       border-bottom: 1px solid rgba(255,255,255,.10);
       gap:10px;
+      color: var(--text);
     }
     .modalTopLeft{display:flex; flex-direction:column; gap:4px}
     .modalKicker{font-size:12px; color:var(--muted2)}
+    #mTitle{ color: var(--text); } /* título blanco */
+
     .x{
       border:1px solid rgba(255,255,255,.16);
       background: rgba(255,255,255,.06);
@@ -334,7 +325,14 @@
       font-weight:980;
       flex: 0 0 auto;
     }
-    .modalBody{padding:14px; display:grid; gap:14px}
+
+    .modalBody{
+      padding:14px;
+      display:grid;
+      gap:14px;
+      overflow:auto; /* scroll interno del contenido */
+    }
+
     .media{
       width:100%;
       border-radius:16px;
@@ -342,7 +340,15 @@
       background: rgba(255,255,255,.03);
       overflow:hidden;
     }
-    .media img{width:100%; height:auto; display:block}
+    .media img{
+      width:100%;
+      height:auto;
+      display:block;
+      max-height: 420px;      /* evita que tape el texto */
+      object-fit: contain;    /* mantiene proporción */
+      background: rgba(0,0,0,.12);
+    }
+
     .modalGrid{
       display:grid;
       grid-template-columns: 1.1fr .9fr;
@@ -919,9 +925,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
